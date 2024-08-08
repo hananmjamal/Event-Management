@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    {% load static %}
+    <style>
+        body {
+            background-color: #F2F1EB;
+            margin: 0;
+            padding: 0;
+            
+        }
+
+        .login-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 400px;
+            padding: 40px;
+            transform: translate(-50%, -50%);
+            background: #F2F1EB;
+            box-sizing: border-box;
+            box-shadow: 0 15px 25px #88AB8E;
+            border-radius: 10px;
+        }
+
+        .login-box .user-box {
+            position: relative;
+        }
+
+        .login-box .user-box input {
+            width: 100%;
+            padding: 10px 0;
+            font-size: 16px;
+            color: black;
+            margin-bottom: 30px;
+            border: none;
+            border-bottom: 1px solid black;
+            outline: none;
+            background: transparent;
+        }
+
+        .login-box .user-box label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 10px 0;
+            font-size: 16px;
+            color: black;
+            pointer-events: none;
+            transition: .5s;
+        }
+
+        .login-box .user-box input:focus ~ label,
+        .login-box .user-box input:valid ~ label {
+            top: -20px;
+            left: 0;
+            color: black;
+            font-size: 12px;
+        }
+
+        .login-box .sign {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #F2F1EB; 
+            color: black; 
+            text-decoration: none;
+            text-transform: uppercase;
+            overflow: hidden;
+            transition: .5s;
+            margin-top: 40px;
+            letter-spacing: 4px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .login-box .sign:hover {
+            background-color: #F2F1EB;
+        }
+
+        .login-box .sign span {
+            position: absolute;
+            display: block;
+        }
+
+        .div_signup {
+            color: black;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .div_signup a {
+            color: #88AB8E;
+        }
+
+        @keyframes btn-anim1 {
+            0% {
+                left: -100%;
+            }
+
+            50%, 100% {
+                left: 100%;
+            }
+        }
+
+        .login-box .sign span:nth-child(1) {
+            bottom: 2px;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #88AB8E);
+            animation: btn-anim1 2s linear infinite;
+        }
+    </style>
+    <script>
+        // JavaScript function to redirect to the event table page
+        function redirectToEventTable() {
+            // Assuming the event table page is named "event-table.html"
+            window.location.href = 'event-table.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="login-box">
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="user-box">
+                <input type="text" name="username" required="">
+                <label>Username</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="password" required="">
+                <label>Password</label>
+            </div>
+            <center>
+                <!-- Updated button structure to match the provided code -->
+                <button type="submit" onclick="redirectToEventTable()" class="sign">
+                    Sign in
+                    <span></span>
+                </button>
+            </center>
+          </form>
+            <div class="div_signup">
+                <h6>Don't have an account?  <a href="{% url 'signup' %}">Sign Up</a>  </h6>
+            </div>
+    </div>
+</body>
+</html>

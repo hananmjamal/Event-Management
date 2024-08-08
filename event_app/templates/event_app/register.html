@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration</title>
+    {% load static %}
+    <style>
+        body {
+            background-color: #F2F1EB ;
+        }
+
+        .login-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 400px;
+            padding: 40px;
+            transform: translate(-50%, -50%);
+            background: #F2F1EB;
+            box-sizing: border-box;
+            box-shadow: 0 15px 25px #88AB8E;
+            border-radius: 10px;
+        }
+
+        .login-box .user-box {
+            position: relative;
+        }
+
+        .login-box .user-box input {
+            width: 100%;
+            padding: 10px 0;
+            font-size: 16px;
+            color:black;
+            margin-bottom: 30px;
+            border: none;
+            border-bottom: 1px solid black;
+            outline: none;
+            background: transparent;
+        }
+
+        .login-box .user-box label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 10px 0;
+            font-size: 16px;
+            color: black;
+            pointer-events: none;
+            transition: .5s;
+        }
+
+        .login-box .user-box input:focus ~ label,
+        .login-box .user-box input:valid ~ label {
+            top: -20px;
+            left: 0;
+            color: black;
+            font-size: 12px;
+        }
+
+        .login-box form button {
+            position: relative;
+            display: inline-block;
+            padding: 10px 20px;
+            color: black;
+            font-size: 16px;
+            text-decoration: none;
+            text-transform: uppercase;
+            overflow: hidden;
+            transition: .5s;
+            margin-top: 40px;
+            letter-spacing: 4px;
+            cursor: pointer;
+            border: none; /* Remove border property */
+        }
+
+        .login-box form button:hover {
+            
+            color: black;
+            border-radius: 5px;
+            box-shadow: 0 0 5px #88AB8E,
+                        0 0 25px #88AB8E,
+                        0 0 50px #88AB8E,
+                        0 0 100px #88AB8E;
+        }
+
+        .login-box form button span {
+            position: absolute;
+            display: block;
+        }
+
+        @keyframes btn-anim1 {
+            0% {
+                left: -100%;
+            }
+
+            50%, 100% {
+                left: 100%;
+            }
+        }
+
+        .login-box form button span:nth-child(1) {
+            bottom: 2px;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #88AB8E);
+            animation: btn-anim1 2s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>Event Registration</h2>
+        <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            <div class="user-box">
+                <input type="text" name="name" required="">
+                <label>Name</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="phoneno" required="">
+                <label>Phoneno</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="event_type" required="">
+                <label>Event</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="location" required="">
+                <label>Location</label>
+            </div>
+            <div class="user-box">
+                <input type="date" name="date" required="">
+                <label>Date</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="venue" required="">
+                <label>Venue</label>
+            </div>
+            <center>
+                <button type="submit">REGISTER<span></span></button>
+            </center>
+        </form>
+        {% if form.errors %}
+            <ul class="errorlist">
+                {% for error in form.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</body>
+</html>

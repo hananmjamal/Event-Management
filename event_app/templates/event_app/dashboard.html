@@ -1,0 +1,21 @@
+<!-- dashboard.html -->
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <table>
+    <tr>
+      <th>Event Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Location</th>
+    </tr>
+    {% for event in events %}
+    <tr>
+      <td>{{ event.name }}</td>
+      <td>{{ event.email }}</td>
+      <td>{{ event.phone }}</td>
+      <td>{{ event.location }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

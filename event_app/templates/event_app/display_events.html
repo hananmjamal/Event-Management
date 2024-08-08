@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event List</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #88AB8E;
+            color: #F2F1EB;
+        }
+
+        button {
+            display: block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #88AB8E;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #88AB8E;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Event List</h1>
+    <form method="post" action="{% url 'update_confirmation_status' %}" id="eventForm">
+        {% csrf_token %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Location</th>
+                    <th>Date</th>
+                    <th>Venue</th>
+                    <th>Amount</th>
+                    <th>Payment Status</th>
+                    <th>Event Confirmation</th>
+                    <th>Edit Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in events %}
+                    <tr>
+                        <td>{{ event.name }}</td>
+                        <td>{{ event.event_type }}</td>
+                        <td>{{ event.location }}</td>
+                        <td>{{ event.date }}</td>
+                        <td>{{ event.venue }}</td>
+                        <td>{{ event.amount }}</td>
+                        <td>{{ event.payment_status }}</td>
+                        <td>
+                            <input type="checkbox" id="confirmation_status_{{ event.id }}" name="confirmation_status_{{ event.id }}" {% if event.event_confirmation %}checked{% endif %}>
+                            <label for="confirmation_status_{{ event.id }}" id="confirmation_label_{{ event.id }}">{{ event.event_confirmation|yesno:"Confirmed,Pending" }}</label>
+                        </td>
+                        <td>
+                            <input type="number" name="amount_{{ event.id }}" value="{{ event.amount }}">
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit">Submit</button>
+    </form>
+
+    <form method="post" action="{% url 'home' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('[id^="confirmation_status_"]').forEach(function (checkbox) {
+                checkbox.addEventListener('change', function () {
+                    var eventId = this.id.split('_')[2];
+                    var confirmationLabel = document.getElementById('confirmation_label_' + eventId);
+                    confirmationLabel.innerText = this.checked ? 'Confirmed' : 'Pending';
+                });
+            });
+
+            document.getElementById('eventForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                // Your existing AJAX code for form submission
+                fetch(this.action, {
+                    method: this.method,
+                    body: new FormData(this),
+                    headers: {
+                        'X-CSRFToken': this.elements['csrfmiddlewaretoken'].value
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Form Submitted');
+                    // Update the table or perform other actions based on the response data
+                })
+                .catch(error => {
+                    console.error('Form Submission Error:', error);
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

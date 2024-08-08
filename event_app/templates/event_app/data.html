@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html land="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAGE</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        display: flex;
+        height: 100vh;
+      }
+
+      .sidebar {
+        width: 20%;
+        background-color: #333;
+        color: white;
+      }
+
+      .sidebar ul {
+        list-style: none;
+      }
+
+      .sidebar ul li {
+        padding: 15px;
+        border-bottom: 1px solid #444;
+      }
+
+      .sidebar ul li:hover {
+        background-color: #555;
+        cursor: pointer;
+      }
+
+      .main {
+        width: 80%;
+        padding: 20px;
+      }
+
+      .main h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .main table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .main table th,
+      td {
+        padding: 10px;
+        border: 1px solid #ccc;
+      }
+
+      .main table th {
+        background-color: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="sidebar">
+        <ul>
+          <li>Dashboard</li>
+          <li>Events</li>
+          <li>Attendees</li>
+          <li>Reports</li>
+          <li>Settings</li>
+        </ul>
+      </div>
+      <div class="main">
+        <h1>ADMIN</h1>
+        <table>
+          <tr>
+            <th>Event Name</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Actions</th>
+          </tr>
+          {% for event in events %}
+            <tr>
+                <td>{{ event.name }}</td>
+                <td>{{ event.date }}</td>
+                <td>{{ event.location }}</td>
+                <td><!-- Actions buttons or links --></td>
+            </tr>
+        {% endfor %}
+          
+          
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

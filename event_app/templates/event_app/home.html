@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management</title>
+    {% load static %}
+    <style>
+      body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    overflow-y: hidden;
+}
+
+header {
+    background-color: #F2F1EB;
+    color:black;
+    padding: 5px;
+    text-align: center;
+    font-family:'Brush Script MT', cursive;
+    font-size:x-large;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    background-color:#F2F1EB;
+    padding: 10px;
+}
+
+nav a {
+    color: black;
+    text-decoration: none;
+    padding: 10px;
+    margin: 0 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color:#EEE7DA;
+}
+
+section {
+    background-image: url("{% static 'z.jpg' %}");
+    background-size: cover;  /* Adjusted property for covering the entire section */
+    padding: 290px;
+    text-align: center;
+}
+
+
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Lavender Events</h1>
+    </header>
+
+    <nav>
+        
+        <a href="#">Contact</a>
+        <a href="{% url 'login' %}">Sign In</a>
+        <a href="{% url 'al' %}">Admin</a>
+
+
+
+    </nav>
+
+    <section>
+        
+        
+    </section>
+
+   
+</body>
+
+</html>

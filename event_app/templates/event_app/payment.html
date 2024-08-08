@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #555;
+            margin: 10px 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        label {
+            margin-top: 10px;
+            color: #333;
+        }
+
+        select {
+            padding: 8px;
+            margin: 5px 0;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px;
+            margin-top: 20px; /* Adjusted margin for better spacing */
+            background-color: #88AB8E;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #88AB8E;
+        }
+
+        /* Style for displaying messages */
+        .messages {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-weight: bold;
+            color: red; /* Set the color you prefer for messages */
+        }
+    </style>
+</head>
+
+<body>
+    
+    <!-- Display Django messages -->
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <p>Amount: ₹{{ event.amount }}</p>
+
+    {% if event.amount > 0 %}
+        <form method="post" action="{% url 'payment_view' event.id %}">
+            {% csrf_token %}
+            
+            <!-- Add a dropdown for payment options -->
+            <label for="payment_option">Select Payment Option:</label>
+            <select id="payment_option" name="payment_option">
+                <option value="credit_card">Credit Card</option>
+                <option value="debit_card">Debit Card</option>
+                <option value="net_banking">Net Banking</option>
+                <option value="upi">UPI</option>
+                <!-- Add more options as needed -->
+            </select>
+
+            <!-- Include any additional form fields for payment details if needed -->
+
+            <button type="submit">Pay Now</button>
+        </form>
+    {% endif %}
+
+</body>
+
+</html>

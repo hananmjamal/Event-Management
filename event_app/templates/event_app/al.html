@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    {% load static %}
+    <style>
+        body {
+            background-color: #F2F1EB;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .login-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 400px;
+            padding: 40px;
+            transform: translate(-50%, -50%);
+            background: #F2F1EB;
+            box-sizing: border-box;
+            box-shadow: 0 15px 25px #88AB8E;
+            border-radius: 10px;
+        }
+
+        .user-box {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .user-box input {
+            width: 100%;
+            padding: 10px 0;
+            font-size: 16px;
+            color: black;
+            border: none;
+            border-bottom: 1px solid black;
+            outline: none;
+            background: transparent;
+            transition: border-bottom-color 0.3s;
+        }
+
+        .user-box label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 10px 0;
+            font-size: 16px;
+            color: black;
+            pointer-events: none;
+            transition: .5s;
+        }
+
+        .user-box input:focus,
+        .user-box input:valid {
+            border-bottom-color:#88AB8E; /* Change the color as needed */
+        }
+
+        .user-box input:focus ~ label,
+        .user-box input:valid ~ label {
+            top: -20px;
+            left: 0;
+            color: #bdb8b8;
+            font-size: 12px;
+        }
+
+        form button {
+            background: #88AB8E;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        form button:hover {
+            background: #88AB8E; 
+        }
+
+        .signup {
+            margin: 20px auto 0;
+            text-align: center;
+        }
+
+        .signup-label,
+        .signup-link {
+            color: #88AB8E; 
+        }
+
+        .signup-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <form method="post" action="{% url 'custom_login' %}">
+            {% csrf_token %}
+            <div class="user-box">
+                <input type="text" name="username" required>
+                <label>Username</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="password" required>
+                <label>Password</label>
+            </div>
+            <center>
+                <button type="submit">LOG IN</button>
+            </center>
+        </form>
+    </div>
+</body>
+</html>
